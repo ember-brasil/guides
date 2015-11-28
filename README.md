@@ -9,7 +9,7 @@ Se você encontrar algum erro você pode reportar uma issue e resolveremos o mai
 * __data/pages.yml__: Menu da esquerda com as sessões do guia.
 * __lib__: Contem os plugins do ´Middleman´.
 * _spec__: Os testes para esses plugins
-* 
+ 
 ## Dependencias
 Esse guia foi desenvolvido com Middleman, que é suportado em Ruby 1.9.3 ou mais novo (preferencialmente Ruby 2.0.0).
 Durante a build, ele irá pedir para você instalar Aspell, para procurar erros ortograficos. No mac ele pode ser instalando usando o Homebrew:
