@@ -1,9 +1,7 @@
-The Ember team and community are committed to everyone having a safe and inclusive experience.
+Mesmo não fazendo parte do Ember team seguimos o mesmo codigo de conduta. 
 
-**Our Community Guidelines / Code of Conduct can be found here**:
-
+**Os regras da comunidade e codigo de conduta pode ser encontrado aqui**:
 http://emberjs.com/guidelines/
 
-For a history of updates, see the page history here:
-
+Para ver o historico de alterações, acesse o link:
 https://github.com/emberjs/website/commits/master/source/guidelines.html.erb
