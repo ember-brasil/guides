@@ -54,4 +54,4 @@ Escreva uma vez, e edit duas (pelo menos antes de abrir seu PR. Quando você edi
 * Eu inclui exemplos claros de qualaquer coisa que eu tenha documentado?
 * Eu posso incluir algum link interessante? Did I include links where appropriate?
 
-Você ficará surpreso em quaõ melhor fica suas habilidades de escrita quando começar a revisar uma ou duas vezes antes de entregar.
+Você ficará surpreso em quaõ melhor fica suas habilidades de escrita quando começar a revisar uma ou duas vezes antes de entregar. 	
