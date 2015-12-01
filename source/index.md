@@ -1,62 +1,62 @@
-Welcome to the Ember.js Guides! This documentation will take you from
-total beginner to Ember expert.
+Bem vindo aos Guides Ember.js! Essa documentação vai te tranformar de 
+um total iniciante à um expert em Ember.
 
-## Organization
+## Organização
 
-On the left side of each page in the Guides is a table of contents,
-organized into sections that can be expanded to show the topics
-they cover. Both the sections and the topics within each section are
-ordered from the most basic concepts to more advanced.
+No lado esquerdo de cada pagina dos Guides existe uma tabela de conteudos,
+essas são as sessões que podem ser expandidas para mostrar os topicos que 
+elas cobrem. Tanto as sessões como seus topicos estão ordenadas dos conceitos
+mais faceis até os mais avançados.
 
-The Guides are intended to contain practical explanations of how to
-build Ember apps, focusing on the most widely-used features of Ember.js.
-For exhaustive documentation of every Ember feature and API, see the
-[Ember.js API documentation](http://emberjs.com/api/).
+A intenção dos guias é de explicar como funciona a construção de 
+apps em Ember, focando assim nas features mais usadas do Ember.js.
+Para uma documentação mais completa por todas as features e pela 
+API, veja o [Ember.js API documentation](http://emberjs.com/api/).
 
-## Assumptions
+## Requesitos para tirar melhor proveito do guide
 
-While we try to make the guides as beginner-friendly as we can, we must
-establish a baseline so that the guides can keep focused on Ember.js
-functionality. We will try to link to appropriate documentation whenever
-a concept is introduced.
+Mesmo tentando fazer os guides serem o mais _beginner-friendly_ 
+o possivel, nos precisamos estabelecer uma base para que os 
+guides possam focar nas funcionalidades do Ember.js. 
+Aqui nos vamos indicar a documentação para os temas que iremos abordar.
 
-To make the most out of the guides, you should have a working knowledge of:
+Para tirar o maximo desses guides, você precisa ter algum conhecimento sobre:
 
-* **HTML, CSS, JavaScript** - the building blocks of web pages. You can find documentation of each of these technologies at the [Mozilla Developer Network][mdn].
-* **Promises** - the native way to deal with asynchrony in your JavaScript code. See the relevant [Mozilla Developer Network][promises] section.
-* **ES2015 modules** - you will better understand Ember CLI's project structure and import paths if you are comfortable with [ES6 JavaScript Modules][js-modules].
-* **ES2015 syntax** - Ember CLI comes with Babel.js by default so you can
-take advantage of newer language features such as arrow functions, template
-strings, destructuring, and more. You can check the
-[Babel.js documentation][babeljs] or read [Understanding ECMAScript 6][es6]
-online.
+* **HTML, CSS, JavaScript** - A base do desenvolvimento paginas na web. Você pode encontrar a documentação apra cada uma dessas tecnologias no [MDN - Mozilla Developer Network][mdn].
+* **Promises** - O jeito nativo de se lidar com codigo assincrono no javascript. Veja a sessão sobre _promises_ da [Mozilla Developer Network][promises].
+* **Modulos ES2015** - Você vai entender mais a estrutura que do Ember CLI e tambem como funciona o paths para fazer importação se você estiver confortavel com [Modulos ES6 JavaScript][js-modules].
+* **Sintaxe ES2015** - Ember CLI vem com Babel.js por default então você vai ter 
+a vantagem de usar as features novas do JavaScript, como funções arrow, template strings
+e muito mais. Você pode ver essas vantagens na propria
+[documentação do Babel.js][babeljs].
 
-## Reporting a problem
+## Reportando um problema
 
-Typos, missing words, code samples with errors are all considered
-documentation bugs. If you spot one of them, or want to otherwise improve
-the existing guides, we are happy to help you help us!
+Ortografia, palavras faltando, ou codigos de exemplo com erros são 
+considerados bugs de documentação. Se você encontrar um deles ou quer 
+melhorar o conteudo desse guia, nos estaremos realmente feliz com 
+sua ajuda!
 
-Some of the more common ways to report a problem with the guides are:
+As maneiras mais comuns para reportar um problema com os guides são:
 
-* Using the pencil icon on the top-right of each guide page
-* Opening an issue/pull request to [the GitHub repository][gh-guides]
+* Usando o icone de lapis na parte superior direita de cada pagina do guia
+* Abrindo uma issue ou fazendo um pull request direto para o [repositorio do GitHub][gh-guides]
 
-Clicking the pencil icon will bring you to GitHub's editor for that
-guide so you can edit right away, using the Markdown markup language.
-This is the fastest way to correct a typo, a missing word, or an error in
-a code sample.
+Clicar no icone do lapis irá levar você direto para o editor do GitHub
+assim você pode editar diretamente no documento, usando Markdown (markup language)
+para editar seu texto.
+Essa é a maneira mais rapida de corrigir um bug na documentação.
 
-If you wish to make a more significant contribution be sure to check our
-[issue tracker][gh-guides-issues] to see if your issue is already being
-addressed. If you don't find an active issue, open a new one.
+Se você encontrar algo para melhorar ou corrigir que não seja tão trivial,
+Você pode usar nosso [issue tracker][gh-guides-issues] para ver se esse problema
+já esta sendo discutido, caso você não veja ele lá você pode abrir um novo.
 
-If you have any styling questions, or about the contributing process you
-can check out our [contributing guide][gh-guides-contributing]. If your
-question persists, reach us at `#documentation` on the [Slack
-group][slackin].
+Se você tem duvidas sobre estilo, ou sobre o processo de contribuir para o guide
+você pode dar uma olhada no [Guia de contribuição][gh-guides-contributing]. Se sua 
+questão ainda existir depois de ler ele, você pode fazer uma pergunta no `#documentation` 
+No nosso [grupo do Slack][slackin].
 
-Good luck!
+Boa Sorte! 
 
 [mdn]: https://developer.mozilla.org/en-US/docs/Web
 [promises]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise 
