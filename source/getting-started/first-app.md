@@ -1,35 +1,33 @@
-Now that you have Ember CLI installed, you can create your first Ember app by
-running:
+Agora que você tem o CLI instalado, você pode criar sua primeira aplicação Ember digitando no terminal:
 
 ```shell
 ember new my-new-app
 ```
 
-This will create a new `my-new-app` directory with your new Ember app inside.
+Isso irá criar um novo diretorio com sua aplicação chamado `my-new-app`.
 
-Once the process finishes, launch the Ember development server:
+Quando o `ember new` acabar, execute o servidor de desenvolvimento do Ember:
 
 ```shell
 cd my-new-app
 ember server
 ```
 
-Navigate to `http://localhost:4200` to see your app in action.
+Abra o navegador e vá para a pagina `http://localhost:4200` para ver sua aplicação funcionando.
 
-The Ember CLI development server
-provides features like rebuilding your app every time a file changes, and a
-mock server for setting up fake data when testing your app.
+##O servidor de desenvolvimento do Ember CLI
+Ele nos dá varias features como como fazer o rebuilding da aplicação toda vez que um arquivo mudar e até
+um servidor mock para configurar algumas _fake data_ para seus testes. 
 
-In a production environment, you'll
-want to build an optimized version of your website assets that can be copied to a
-server. To build your app for production, run:
+
+Em um servidor de produção, você vai querer uma versão otimizada de todos os assets do seu site.
+Para fazer isso você precisa fazer a build da aplicação especificando que seu environment será 
+em produção. Então rode no terminal:
 
 ```shell
 ember build --environment=production
 ```
 
-When this finishes the `dist/` directory will contain a version of your
-application suitable for production use. Copy the contents of
-this folder to your production server. Alternatively you can, explore the
-[ember-cli-deploy](http://ember-cli.github.io/ember-cli-deploy/) addon for
-more advanced functionality.
+Quando esse processo acabar sua aplicação vai estar pronta para 
+uso em produção dentro da pasta `dist/`. Basta copiar o conteudo desse diretorio para seu servidor.
+Se você precisa de mais recursos você pode usar o addon [ember-cli-deploy](http://ember-cli.github.io/ember-cli-deploy/)
