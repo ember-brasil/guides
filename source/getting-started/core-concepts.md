@@ -1,20 +1,14 @@
-Para começar a conhecer melhor o Ember, existem alguns conceitos que você precisa entender..
+Para entender o Ember, existem alguns conceitos que você precisa conhecer.
 
 ## Templates
 
-Templates, escritos em Handlebars, eles são a interface da sua aplicação.
-Junto com HTML puro, templates podem ter expressões como `{{title}}` ou `{{author}}`,
-assim você pode inserir informações de um contêiner no HTML. Eles também podem
-conter helpers, como por exemplo,`{{#if isAdmin}}30 people have viewed your blog today.{{/if}}`. Mas principalmente, eles terão componentes, como por exemplo, um template pode listar todos os posts de um blog renderizando um componente para cada post.
+Templates são as interfaces da aplicação, escritos em Handlebars que é uma linguagem de markdown. Junto com HTML puro, templates podem ter expressões como `{{title}}` ou `{{author}}`, assim você pode inserir informações em um contêiner no HTML. Eles também podem conter helpers, como por exemplo,`{{#if isAdmin}}30 people have viewed your blog today.{{/if}}`. Mas em geral, eles terão componentes, como por exemplo, um template pode listar todos os posts de um blog renderizando um componente para cada post.
 
 ## Componentes
 
-Componentes é a maneira principal maneira que as interfaces são organizadas no Ember.
+Componentes são a principal maneira em que interfaces são organizadas no Ember.
 Eles são formados por duas partes: um template, e um arquivo escrito em JavaScript que
-define o comportamento desse componente. Por exemplo, um blog talvez tenha um componente
-para listar todos os posts chamado `all-posts`, e outro para mostrar cada um chamado `view-post`.
-Se os usuarios puderem dar upvote em um post, o componente `view-post` teria um comportamento do tipo
-_quando o usuário clicar no botão de upvote, incremente o valor da propriedade `vote` por 1_.
+define o comportamento desse componente. Por exemplo, um blog talvez tenha um componente para listar todos os posts chamado `all-posts`, e outro para mostrar cada um chamado `view-post`. Se os usuários puderem dar upvote em um post, o componente `view-post` teria um comportamento do tipo _quando o usuário clicar no botão de upvote, incremente o valor da propriedade `vote` por 1_.
 
 ## Controllers
 
@@ -41,14 +35,13 @@ Do mesmo jeito que uma route `view-post` iria passar os dados do modelo para o c
 
 ## The Router
 
-O router mapeia a URL para uma route. Por exemplo, quadno o usuario visitar a URL `/posts`,
-o router irá carregar a rota `all-posts`. O router também pode carregar rotas aninhadas.
-Por exemplo, se seu app do blog tiver uma lista de posts no canto da tela, e um post no centro,
-nos podemos dizer que a rota `all-posts` estava aninhada com a `view-post`.
+O router mapeia a URL para uma route. Por exemplo, quando o usuário visitar a URL `/posts`, o router irá carregar a rota `all-posts`. O router também pode carregar rotas aninhadas.
 
-Talvez a coisa mais importante para se lembrar é que o no Ember o estado da aplicação é obtido
-a partir da URL. A URL determina qual rota carregar, que depois irá definir qual modelo e
-assim por diante.
+Por exemplo, se seu app do blog tiver uma lista de posts no canto da tela, e um post no centro, nos podemos dizer que a rota `all-posts` estava aninhada com a `view-post`.
+
+Talvez a coisa mais importante para se lembrar é que o no Ember o estado da aplicação é obtido a partir da URL. A URL determina qual rota carregar, que depois irá definir qual modelo, controller e template vão ser usados.
+
+
 
 
 
