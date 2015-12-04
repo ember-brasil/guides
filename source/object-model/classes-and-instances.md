@@ -1,10 +1,11 @@
-As you learn about Ember, you'll see code like `Ember.Component.extend()` and
-`DS.Model.extend()`. Here, you'll learn about this `extend()` method, as well
-as other major features of the Ember object model.
+Conforme você for aprendendo sobre o Ember, você vai encontrar alguns codigos 
+parecidos com  `Ember.Component.extend()` ou `DS.Model.extend()`. Aqui, você
+vai aprender mais sobre esse metodo `extend()`, assim como as maiores
+features do object model do Ember.
 
-### Defining Classes
+### Definindo classes
 
-To define a new Ember _class_, call the [`extend()`][1] method on
+Para definir uma nova classe Ember Ember _class_, chame o metodo [`extend()`][1] do
 [`Ember.Object`][2]:
 
 [1]: http://emberjs.com/api/classes/Ember.Object.html#method_extend
@@ -18,11 +19,10 @@ Person = Ember.Object.extend({
 });
 ```
 
-This defines a new `Person` class with a `say()` method.
+Isso define uma nova classe `Person` com um metodo chamado `say()`.
 
-You can also create a _subclass_ from any existing class by calling
-its `extend()` method. For example, you might want to create a subclass
-of Ember's built-in [`Ember.Component`][1] class:
+Você tambem pode criar uma  _subclass_ a partir de qualquer classe existente chamando o 
+metodo `extend()`. Por exemplo, se você quiser criar uma subclass do [`Ember.Component`][1]:
 
 [1]: http://emberjs.com/api/classes/Ember.Component.html
 
@@ -33,11 +33,10 @@ export default Ember.Component.extend({
 });
 ```
 
-### Overriding Parent Class Methods
+### Overriding Metodos da Classe Pai
 
-When defining a subclass, you can override methods but still access the
-implementation of your parent class by calling the special `_super()`
-method:
+Quando definimos uma sub-classe, você pode fazer um override nos metodos da classe pai, mais ainda ter acesso
+à implementação original chamndo o metodo especial `_super()`:
 
 ```javascript
 Person = Ember.Object.extend({
@@ -62,13 +61,13 @@ var yehuda = Soldier.create({
 yehuda.say('Yes'); // alerts "Yehuda Katz says: Yes, sir!"
 ```
 
-In certain cases, you will want to pass arguments to `_super()` before or after overriding.
+Em alguns cassos, você vai querer passar argumentos para o `_super()` antes ou depois do override.
 
-This allows the original method to continue operating as it normally would.
+Isso permite que o metodo original continue funcionando normalmente, como se não tivesse sido feito o override.
 
-One common example is when overriding the [`normalizeResponse()`][3] hook in one of Ember-Data's serializers.
+Um exemplo commum é quando nos fazemos isos com o hook [`normalizeResponse()`][3] em um serializer do Ember-Data's.
 
-A handy shortcut for this is to use a "spread operator", like `...arguments`:
+O jeito mais facil de fazer isso é usar um "spread operator", como por exemplo `...arguments`:
 
 [3]: http://emberjs.com/api/data/classes/DS.JSONAPISerializer.html#method_normalizeResponse
 
@@ -79,14 +78,14 @@ normalizeResponse(store, primaryModelClass, payload, id, requestType)  {
 }
 ```
 
-The above example returns the original arguments (after your customizations) back to the parent class, so it can continue with its normal operations.
+O exemplo acima retorna o argumento original (depois de suas constumizações) de volta para a classe pai,
+assim você pode continuar com suas operações normais.
 
-### Creating Instances
+### Criando instancias
 
-Once you have defined a class, you can create new _instances_ of that
-class by calling its [`create()`][1] method. Any methods, properties and
-computed properties you defined on the class will be available to
-instances:
+Uma vez que você tenha definido uma classe, você pode criar novas _instancias_ dessa classe
+chamando o metodo [`create()`][1]. Qualquer metodo, propriedade e _computed properties_ 
+que você definir na sua classe estarão disponiveis nas suas instancias:
 
 [1]: http://emberjs.com/api/classes/Ember.Object.html#method_create
 
@@ -95,8 +94,8 @@ var person = Person.create();
 person.say('Hello'); // alerts " says: Hello"
 ```
 
-When creating an instance, you can initialize the values of its properties
-by passing an optional hash to the `create()` method:
+Quando criamos uma instancia, você pode iniciar os valore sde suas propriedades
+passando um hash como parametro opcional do metodo `create()`:
 
 ```javascript
 Person = Ember.Object.extend({
@@ -112,23 +111,21 @@ var tom = Person.create({
 tom.helloWorld(); // alerts "Hi, my name is Tom Dale"
 ```
 
-For performance reasons, note that you cannot redefine an instance's
-computed properties or methods when calling `create()`, nor can you
-define new ones. You should only set simple properties when calling
-`create()`. If you need to define or redefine methods or computed
-properties, create a new subclass and instantiate that.
+Por motivos de performace, perceba que você não pode redefinir a instancia de uma 
+_computed properties_ ou metodo quando chama create `create()`, você tambem não pode 
+definir novos. Só sete propriedades simples passando uma hash para o metodo `create()`.
+Se você precisar redefinir metodos ou _computed properties_, crie uma nova subclasse e instancie ela.
 
-By convention, properties or variables that hold classes are
-PascalCased, while instances are not. So, for example, the variable
-`Person` would point to a class, while `person` would point to an instance
-(usually of the `Person` class). You should stick to these naming
-conventions in your Ember applications.
+Por convenção, propriedades ou variaveis que um classe possuem são em
+PascalCased, sendo instancias ou não. Então por exemplo, a variavel 
+`Person` irá apontar para uma classe, enquanto `person` para uma instancia
+(normalmente da classe `Person`). Você deve manter esse padrão enquanto estiver
+desenvolvendo aplicações Ember.
 
-### Initializing Instances
+### Inicializando instancias
 
-When a new instance is created, its [`init()`][1] method is invoked
-automatically. This is the ideal place to implement setup required on new
-instances:
+Quando uma nova instancia é criada seu metodo [`init()`][1] é invocado automaticamente. 
+Isso é ideal para lugares onde você precisa implementar um setup nas novas instancias:
 
 [1]: http://emberjs.com/api/classes/Ember.Object.html#method_init
 
@@ -147,12 +144,13 @@ Person.create({
 // alerts "Stefan Penner, reporting for duty!"
 ```
 
-If you are subclassing a framework class, like `Ember.Component`, and you
-override the `init()` method, make sure you call `this._super(...arguments)`!
-If you don't, a parent class may not have an opportunity to do important
-setup work, and you'll see strange behavior in your application.
+Se você estiver fazendo uma subclasse de uma classe do framework, tipo `Ember.Component` por exemplo, 
+e na sua subclasse tiver um override do metodo `init()`, tenha certeza de chamar o `this._super(...arguments)`!
+Se você não fizer isso, pode ser que a classe perca algum algum setup importante e ela não vai se comportar 
+corretamente na sua aplicação.
 
-Arrays and objects defined directly on any `Ember.Object` are shared across all instances of that object.
+Arrays e objetos definidos diretamente em qualquer subclasse do `Ember.Object` são compartilhados 
+para todas as instancias desse objeto.
 
 ```js
 Person = Ember.Object.extend({
@@ -177,7 +175,8 @@ Person.create({
 // They both end up with: ['eggs', 'cheese', 'bacon', 'sausage']
 ```
 
-To avoid this behavior, it is encouraged to initialize those arrays and object properties during `init()`. Doing so ensures each instance will be unique.
+Para evitar esse comportamento, nos recomendamos você inicializar esses arrays e objetos durante o `init()`.
+Fazendo assim que cada instancia seja unica.
 
 ```js
 Person = Ember.Object.extend({
@@ -204,10 +203,10 @@ Person.create({
 // Robert ['eggs', 'cheese', 'sausage']
 ```
 
-### Accessing Object Properties
+### Acessando Propriedade de um Objeto
 
-When accessing the properties of an object, use the [`get()`][1]
-and [`set()`][2] accessor methods:
+Quando acessando as propriedades de um objeto utilize os metodos [`get()`][1]
+e [`set()`][2]:
 
 [1]: http://emberjs.com/api/classes/Ember.Object.html#method_get
 [2]: http://emberjs.com/api/classes/Ember.Object.html#method_set
@@ -219,5 +218,5 @@ var name = person.get('name');
 person.set('name', 'Tobias Fünke');
 ```
 
-Make sure to use these accessor methods; otherwise, computed properties won't
-recalculate, observers won't fire, and templates won't update.
+Tenha certeza de usar esses metodos de acesso; Caso você não use _computed properties_ não serão
+recalculadas, _observers_ não irão triggar, e templates não farão update.
