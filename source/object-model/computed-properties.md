@@ -1,12 +1,12 @@
-## What are Computed Properties?
+## O que são Computed Properties?
 
-In a nutshell, computed properties let you declare functions as properties. You create one by defining a computed property as a function, which Ember will automatically call when you ask for the property. You can then use it the same way you would any normal, static property.
+Resumindo, computed properties deixam você declarar funções como propriedades. É uma função que você declara como computed properties, mas você pode usar ela como se fosse uma propriedade comum, direto no template, e toda vez que ela for chamada, o ember irá executar essa função e te retornar o `return` dela.
 
-It's super handy for taking one or more normal properties and transforming or manipulating their data to create a new value.
+Isso facilita muito o trabalho quando você precisa manipular diversas propriedades para criar um novo valor.
 
-### Computed properties in action
+### Computed properties em ação
 
-We'll start with a simple example:
+Nos iremos começar com um exemplo bem simples:
 
 ```javascript
 Person = Ember.Object.extend({
@@ -27,13 +27,13 @@ var ironMan = Person.create({
 ironMan.get('fullName'); // "Tony Stark"
 ```
 
-This declares the function to be a computed property, and the arguments tell Ember that it depends on the `firstName` and `lastName` attributes.
+Isso declara a função como uma computed property, e os argumentos dizem para o ember que ela depende dos atributo `firstName` e do `lastName`.
 
-Whenever you access the `fullName` property, this function gets called, and it returns the value of the function, which simply calls `firstName` + `lastName`.
+Sempre que você acessar a propriedade `fullName`, essa função será chamada, e retornará o valor dela, que no nosso exemplo é `firstName` + `lastName`.
 
-### Chaining computed properties
+### Corrente de computed properties
 
-You can use computed properties as values to create new computed properties. Let's add a `description` computed property to the previous example, and use the existing `fullName` property and add in some other properties:
+Você pode usar uma computed properties como valor para criar outras computed properties. Vamos adicionar a  computed property `description` no exemplo anterior, e agora usar a propriedade `fullName` e adicionar em algumas outras:
 
 ```javascript
 Person = Ember.Object.extend({
@@ -61,9 +61,9 @@ var captainAmerica = Person.create({
 captainAmerica.get('description'); // "Steve Rogers; Age: 80; Country: USA"
 ```
 
-### Dynamic updating
+### Update Dinamico
 
-Computed properties, by default, observe any changes made to the properties they depend on and are dynamically updated when they're called. Let's use computed properties to dynamically update.
+Computed properties, por default, observão qualquer mudança feita nas propriedades em que eles depentem e são automaticamente atualizados quando são chamados. Vamos testar essa feature de update dinamico.
 
 ```javascript
 captainAmerica.set('firstName', 'William');
@@ -71,13 +71,14 @@ captainAmerica.set('firstName', 'William');
 captainAmerica.get('description'); // "William Rogers; Age: 80; Country: USA"
 ```
 
-So this change to `firstName` was observed by `fullName` computed property, which was itself observed by the `description` property.
+Então isso ira mudar o `firstName` que estava sendo observado pelo `fullName`, que estava sendo observado pela propriedade `description`.
 
-Setting any dependent property will propagate changes through any computed properties that depend on them, all the way down the chain of computed properties you've created.
+Setar qualquer propriedade irá propagar as mudanças por todas as computed properties que depende delas.
 
-### Setting Computed Properties
+### Setando Computed Properties
 
-You can also define what Ember should do when setting a computed property. If you try to set a computed property, it will be invoked with the key (property name), and the value you want to set it to.
+Você pode definir oque o Ember deve fazer quando você seta uma computed property. Se você tentar 
+setar uma computed property, ele irá invocar com a key (nome da propriedade), e o valor que você quer setar para.
 
 ```javascript
 Person = Ember.Object.extend({
