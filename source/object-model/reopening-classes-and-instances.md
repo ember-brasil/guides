@@ -1,5 +1,5 @@
-You don't need to define a class all at once. You can reopen a class and
-define new properties using the [`reopen()`][1] method.
+Você não precisa defniir a classe toda de uma vez. Você pode reabri-la e definir novas propriedades 
+usando o metodo [`reopen()`][1].
 
 [1]: http://emberjs.com/api/classes/Ember.Object.html#method_reopen
 
@@ -10,10 +10,7 @@ Person.reopen({
 
 Person.create().get('isPerson') // true
 ```
-
-When using `reopen()`, you can also override existing methods and
-call `this._super`.
-
+Quando usando o `reopen()`, você tambem pode fazer override de metodos que já existem e chamar o `this._super`.
 
 ```javascript
 Person.reopen({
@@ -24,12 +21,12 @@ Person.reopen({
 });
 ```
 
-`reopen()` is used to add instance methods and properties that are shared 
-across all instances of a class. It does not add
-methods and properties to a particular instance of a class as in vanilla JavaScript (without using prototype).
+`reopen()` é usado para adicionar metodos de instancia e propriedades que são compartilhados
+por todas as instancias de uma classe. Ele não adiciona nenhum metodo ou propriedade
+para a instancia original do JavaScript (sem usar o prototype).
 
-But when you need to add static methods or static properties to the class itself
-you can use [`reopenClass()`][1].
+Mas quando você precisar adicionar metodos estaticos ou propriedades estaticas 
+para a propria classe você pode usar o [`reopenClass()`][1].
 
 [1]: http://emberjs.com/api/classes/Ember.Object.html#method_reopenClass
 
