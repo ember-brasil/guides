@@ -1,10 +1,10 @@
-Unlike most other frameworks that include some sort of binding implementation,
-bindings in Ember.js can be used with any object. That said, bindings are most
-often used within the Ember framework itself, and for most problems Ember app
-developers face, computed properties are the appropriate solution.
+Diferente de outros frameworks que implementam algum tipo de binding,
+bindings no Ember.js podem ser usados com qualquer objeto. Podemos dizer que bindings são 
+mais usados dentro do proprio framework, e para a maior parte dos problemas de uma aplicação Ember, 
+computed properties são quase sempre a solução mais apropriada.
 
-The easiest way to create a two-way binding is to use a [`computed.alias()`][1],
-that specifies the path to another object.
+A maneira mais facil de se criar um _two-way binding_ é usar um [`computed.alias()`][1],
+que especifica o caminho de um outro objeto.
 
 [1]: http://emberjs.com/api/classes/Ember.computed.html#method_alias
 
@@ -28,20 +28,19 @@ wife.set('householdIncome', 90000);
 husband.get('householdIncome'); // 90000
 ```
 
-Note that bindings don't update immediately. Ember waits until all of your
-application code has finished running before synchronizing changes, so you can
-change a bound property as many times as you'd like without worrying about the
-overhead of syncing bindings when values are transient.
+Note que bindings não são atualizados automaticamente. O Ember espera todo o codigo da sua 
+aplicação terminar de executar antes de sincronizar as mudanças, então você mudar a mesma 
+propriedade quantas vezes você quiser sem se preocupar sobre isso sobrecarregar o sistema 
+com muitas transições de dados.
 
 ## One-Way Bindings
 
-A one-way binding only propagates changes in one direction, using
-[`computed.oneWay()`][1]. Often, one-way bindings are a performance 
-optimization and you can safely use a two-way binding (which are de facto one-way bindings if you only ever change one side).
-Sometimes one-way bindings are useful to achieve specific behaviour such as a
-default that is the same as another property but can be overridden (e.g. a
-shipping address that starts the same as a billing address but can later be 
-changed)
+Um one-way binding só se propaga em um direção, usando
+[`computed.oneWay()`][1]. De vez enquando, one-way bindings são otimizações de performance 
+sendo que você sempre pode usar um _two way binding_ (que na verdarde são one-way bindings se você nunca mudar um dos lados).
+Algumas vezes one-way bindings são uteis para se criar um comportamente especifico como 
+por exemplo criar o default de uma outra propriedade que pode ser overridden (como o endereço de entrega
+que originalmente é o endereço de cobrança, mas pode ser alterado depois).
 
 [1]: http://emberjs.com/api/classes/Ember.computed.html#method_oneWay
 
