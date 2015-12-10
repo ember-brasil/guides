@@ -1,8 +1,9 @@
-Sometimes you have a computed property whose value depends on the properties of 
-items in an array. For example, you may have an array of todo items, and want
-to calculate how many remain incomplete based on their `isDone` property.
+Algumas vezes você vai ter uma computed property cujo valor depende das propriedades
+de um item de um array. Por exemplo, você pode ter um array de items de uma todo list,
+e você quer calcular quantos estão incompletos baseado na propriedade `isDone` de cada item
+desse array.
 
-To facilitate this, Ember provides the `@each` key illustrated below:
+Para facilitar isso, o ember nos da uma chave `@each` como é demostrado abaixo:
 
 ```app/components/todos.js
 export default Ember.Component.extend({
@@ -19,15 +20,15 @@ export default Ember.Component.extend({
 });
 ```
 
-Here, the dependent key `todos.@each.isDone` instructs Ember.js to update bindings 
-and fire observers when any of the following events occurs: 
+Aqui, a chave dependente `todos.@each.isDone` diz para o Ember.js atualizar todos os binding
+e disparar todos os observes sempre que qualquer evento abaixo ocorrer: 
 
-1. The `isDone` property of any of the objects in the `todos` array changes.
-2. An item is added to the `todos` array.
-3. An item is removed from the `todos` array.
-4. The `todos` property of the component is changed to a different array.
+1. A propriedade `isDone` de qualquer objeto do array `todos` mudar.
+2. Um item for adicionado no array `todos`.
+3. Um item for removido do array `todos`.
+4. A propriedade do array `todos` for mudada para um diferente array.
 
-In the example above, the `remaining` count is `1`:
+No exemplo abaixo, o `remaining` count é `1`
 
 ```javascript
 import TodosComponent from 'app/components/todos';
@@ -37,8 +38,7 @@ todosComponent.get('remaining');
 // 1
 ```
 
-If we change the todo's `isDone` property, the `remaining` property is updated
-automatically:
+Se nos mudarmos a propriedade `isDone` do array todo, a propriedade `remaining` é atualizada automaticamente:
 
 ```javascript
 let todos = todosComponent.get('todos');
@@ -55,13 +55,13 @@ todosComponent.get('remaining');
 // 1
 ```
 
-Note that `@each` only works one level deep. You cannot use nested forms like
-`todos.@each.owner.name` or `todos.@each.owner.@each.name`.
+Note que `@each` só funciona em um nivel abaixo. Você não poode aninhar form do tipo
+`todos.@each.owner.name` ou `todos.@each.owner.@each.name`.
 
-Sometimes you don't care if properties of individual array items change. In this
-case use the `[]` key instead of `@each`. Computed properties dependent on an array
-using the `[]` key will only update if items are added to or removed from the array,
-or if the array property is set to a different array. For example:
+Alguma vezes, você não se importa se as propriedades individuais do array mudar. 
+Nesse caso você pode usar a chave `[]` no lugar do `@each`. Computed properties depende de um array
+usando o  `[]` só ira atualizar se um item for adicionado ou removido desse array,
+ou se esse array for setado para um array diferente. Por exemplo:
 
 ```app/components/todos.js
 export default Ember.Component.extend({
@@ -78,14 +78,13 @@ export default Ember.Component.extend({
 });
 ```
 
-Here, `indexOfSelectedTodo` depends on `todos.[]`, so it will update if we add an item
-to `todos`, but won't update if the value of `isDone` on a `todo` changes.
+Aqui o `indexOfSelectedTodo` depende do `todos.[]`, então ele irá atualizar se nos adicionarmos um item
+para o `todos`, mas não irá atualizar se o valor de `isDone` de um dos itens mudar.
 
-Several of the [Ember.computed](http://emberjs.com/api/classes/Ember.computed.html) macros 
-utilize the `[]` key to implement common use-cases. For instance, to
-create a computed property that mapped properties from an array, you could use 
-[Ember.computed.map](http://emberjs.com/api/classes/Ember.computed.html#method_map)
-or build the computed property yourself:
+Muitos dos macros do [Ember.computed](http://emberjs.com/api/classes/Ember.computed.html) usa a 
+chave `[]` para implementar os casos mais comuns. Por exemplo, para criar uma computed property 
+que mapeie as propriedade de um array você pode usar [Ember.computed.map](http://emberjs.com/api/classes/Ember.computed.html#method_map)
+ou construir uma computed property você mesmo:
 
 ```javascript
 const Hamster = Ember.Object.extend({
@@ -105,7 +104,7 @@ hamster.get('chores').pushObject('review code');
 hamster.get('excitingChores'); // ['CHORE 1: CLEAN!', 'CHORE 2: WRITE MORE UNIT TESTS!', 'CHORE 3: REVIEW CODE!']
 ```
 
-By comparison, using the computed macro abstracts some of this away:
+Para comparar, usando um dos macros seu codigo seria parecido com:
 
 ```javascript
 const Hamster = Ember.Object.extend({
@@ -115,7 +114,6 @@ const Hamster = Ember.Object.extend({
 });
 ```
 
-The computed macros expect you to use an array, so there is no need to use the
-`[]` key in these cases. However, building your own custom computed property
-requires you to tell Ember.js that it is watching for array changes, which is
-where the `[]` key comes in handy.
+O macros computed esperar você utiliza-los em um array, então você não precisa usar a chave
+`[]` nesses casos. No entanto, é preciso especificar essa chave quando for construir sua 
+propria computed property, para fazer o Ember.js, escutar esse array.
