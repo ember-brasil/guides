@@ -1,14 +1,14 @@
-Ember supports observing any property, including computed properties.
+Ember suporta um `observe` de qualquer propriedade, incluindo computed properties.
 
-Observers should contain behavior that reacts to changes in another property.
-Observers are especially useful when you need to perform some behavior after a
-binding has finished synchronizing.
+Observer devem conter o comportament que deve ser executando reagindo à mudando em propriedades.
+Observers são especialmente uteis quando você precisa executar algum codigo depois que um bind for 
+sincronizado.
 
-Observers are often over-used by new Ember developers. Observers are used
-heavily within the Ember framework itself, but for most problems Ember app
-developers face, computed properties are the appropriate solution.
+Observer normalmente são usados demais por novos desenvolvedores Ember. Observers são usandos 
+em diversos lugares no proprio framework, mas a maioria dos problems provavelmente poderão 
+ser resolvidos usando computed properties.
 
-You can set up an observer on an object by using `Ember.observer`:
+Você pode criar um observer de um objecto usando o `Ember.observer`:
 
 ```javascript
 Person = Ember.Object.extend({
@@ -36,14 +36,14 @@ person.get('fullName'); // "Yehuda Katz"
 person.set('firstName', 'Brohuda'); // fullName changed to: Brohuda Katz
 ```
 
-Because the `fullName` computed property depends on `firstName`,
-updating `firstName` will fire observers on `fullName` as well.
+Por que a computed property `fullName` depende do `firstName`,
+atualizando `firstName` irá disparar os observers do `fullName` tambem.
 
-### Observers and asynchrony
+### Observers and assincronia
 
-Observers in Ember are currently synchronous. This means that they will fire
-as soon as one of the properties they observe changes. Because of this, it
-is easy to introduce bugs where properties are not yet synchronized:
+Atualmente Observers no Ember são sincronos. Isso significa que eles irão disparar 
+assim que uma das propriedades que observam mudar. Por causa disso, é facil de se 
+encontrar bugs onde as propriedades ainda não estão sincronizadas:
 
 ```javascript
 Person.reopen({
@@ -56,8 +56,8 @@ Person.reopen({
 });
 ```
 
-This synchronous behavior can also lead to observers being fired multiple
-times when observing multiple properties:
+Esse comportamente syncrono tambem pode fazer com que um obsever seja disparado diversas vezes
+quando estiver observado mais que uma propriedades:
 
 ```javascript
 Person.reopen({
@@ -70,9 +70,9 @@ person.set('firstName', 'John');
 person.set('lastName', 'Smith');
 ```
 
-To get around these problems, you should make use of [`Ember.run.once()`][1].
-This will ensure that any processing you need to do only happens once, and
-happens in the next run loop once all bindings are synchronized:
+Para resolver esses problemas você irá fazer uso do [`Ember.run.once()`][1].
+Isso irá garantir que qualquer processamento que você precisar só irá acontecer uma vez,
+e acontecerá no proximo `run loop` depois que todo os bindings forem sincronizados:
 
 [1]: http://emberjs.com/api/classes/Ember.run.html#method_once
 
@@ -93,13 +93,13 @@ person.set('firstName', 'John');
 person.set('lastName', 'Smith');
 ```
 
-### Observers and object initialization
+### Observers e inicialização de objeto
 
-Observers never fire until after the initialization of an object is complete.
+Observers nunca disparam antes que a inicialização de um objeto terminar.
 
-If you need an observer to fire as part of the initialization process, you
-cannot rely on the side effect of `set`. Instead, specify that the observer
-should also run after `init` by using [`Ember.on()`][1]:
+Se você precisar disparar que um observer na inicialização desse objejo você não poderá 
+usar ele com o `set`. No lugar você precisará especificar que o observer tambem deve rodar depois do 
+ `init` usando o [`Ember.on()`][1]:
 
 [1]: http://emberjs.com/api/classes/Ember.html#method_on
 
@@ -115,24 +115,23 @@ Person = Ember.Object.extend({
 });
 ```
 
-### Unconsumed Computed Properties Do Not Trigger Observers
+### Computed Properties não consumidas Não Disparam Observers
 
-If you never `get()` a computed property, its observers will not fire even if
-its dependent keys change. You can think of the value changing from one unknown
-value to another.
+Se você nuncar usar `get()` de um computed property, os observer não irão 
+disparar se eles dependem dessas chaves. Se você pensa que o valor estará mudando
+de um desconhecido para outro.
 
-This doesn't usually affect application code because computed properties are
-almost always observed at the same time as they are fetched. For example, you get
-the value of a computed property, put it in DOM (or draw it with D3), and then
-observe it so you can update the DOM once the property changes.
+Isso normalmente não afeta sua aplicação porque normalmente computed properties são 
+sempre observadas no mesmo tempo em que são manipulados. Por exemplo, se você usar o `get`
+o valor de uma computed property, colocar ela na DOM, e então observar quando 
+o observer irá atualizar a DOM depois que as propriedades mudarem.
 
-If you need to observe a computed property but aren't currently retrieving it,
-get it in your `init()` method.
+Se você precisar observer uma computed property mas você não esta recuperando ela, você 
+pode colocar isso dentro do seu metodo `init`.
 
-### Outside of class definitions
+### Fora das definição das classes
 
-You can also add observers to an object outside of a class definition
-using [`addObserver()`][1]:
+Você pode adicionar observers à um objeto fora das suas classes usando o [`addObserver()`][1]:
 
 [1]: http://emberjs.com/api/classes/Ember.Object.html#method_addObserver
 
