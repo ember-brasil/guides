@@ -1,18 +1,15 @@
-Ember suporta um `observe` de qualquer propriedade, incluindo computed properties.
+No Ember você pode criar um `observer` para qualquer propriedade, mesmo que ela for uma _computed properties_.
 
-Observer devem conter o comportament que deve ser executando reagindo à mudando em propriedades.
-Observers são especialmente uteis quando você precisa executar algum codigo depois que um bind for 
-sincronizado.
+`Observers` são funções que executam quando o valor de alguma propriedade for alterado,
+eles são especialmente uteis quando você precisa fazer um determinado comportamento depois que certos binds forem sincronizados.
 
-Observer normalmente são usados demais por novos desenvolvedores Ember. Observers são usandos 
-em diversos lugares no proprio framework, mas a maioria dos problems provavelmente poderão 
-ser resolvidos usando computed properties.
+É importante não exagerar no uso de `observer`, pois apesar de ser usado em diversos lugares do próprio framework, normalmente desenvolvedores iniciantes usam ele para resolver problemas onde uma _computed properties_ seria uma solução mais adequada.
 
-Você pode criar um observer de um objecto usando o `Ember.observer`:
+Você pode criar um `observer` de um objeto usando o `Ember.observer`:
 
 ```javascript
 Person = Ember.Object.extend({
-  // these will be supplied by `create`
+  // Esses parametros serão carregados pelo `create`
   firstName: null,
   lastName: null,
 
@@ -21,7 +18,7 @@ Person = Ember.Object.extend({
   }),
 
   fullNameChanged: Ember.observer('fullName', function() {
-    // deal with the change
+    // lida com a mudança na propriedade
     console.log(`fullName changed to: ${this.get('fullName')}`);
   })
 });
@@ -31,7 +28,7 @@ var person = Person.create({
   lastName: 'Katz'
 });
 
-// observer won't fire until `fullName` is consumed first
+// observer não irá ser disparado até o `fullName` ser consumido primeiro
 person.get('fullName'); // "Yehuda Katz"
 person.set('firstName', 'Brohuda'); // fullName changed to: Brohuda Katz
 ```
@@ -39,30 +36,30 @@ person.set('firstName', 'Brohuda'); // fullName changed to: Brohuda Katz
 Por que a computed property `fullName` depende do `firstName`,
 atualizando `firstName` irá disparar os observers do `fullName` tambem.
 
-### Observers and assincronia
+### Observers e sincronismo
 
-Atualmente Observers no Ember são sincronos. Isso significa que eles irão disparar 
-assim que uma das propriedades que observam mudar. Por causa disso, é facil de se 
-encontrar bugs onde as propriedades ainda não estão sincronizadas:
+Atualmente os `observers` do Ember são síncronos. Isso significa que eles irão disparar
+assim que uma das propriedades que observam mudar. Por causa disso, é fácil de se
+encontrar bugs onde as propriedades ainda não foram sincronizadas:
 
 ```javascript
 Person.reopen({
   lastNameChanged: Ember.observer('lastName', function() {
-    // The observer depends on lastName and so does fullName. Because observers
-    // are synchronous, when this function is called the value of fullName is
-    // not updated yet so this will log the old value of fullName
+    // O observer depende do lastName e do fullName. 
+    // Por ser síncrono ele irá ser disparado depois que o lastName for 
+    // for mudado, mesmo que o fullName ainda não tenha sido atualizado
     console.log(this.get('fullName'));
   })
 });
 ```
 
-Esse comportamente syncrono tambem pode fazer com que um obsever seja disparado diversas vezes
-quando estiver observado mais que uma propriedades:
+Esse comportamento síncrono também pode fazer com que um `observer` seja disparado diversas vezes quando estiver observado mais que uma propriedades:
 
 ```javascript
 Person.reopen({
   partOfNameChanged: Ember.observer('firstName', 'lastName', function() {
-    // Because both firstName and lastName were set, this observer will fire twice.
+    // Por causa que ambos firstName e lastName foram alterados
+// esse observer será disparado duas vezes.
   })
 });
 
@@ -70,9 +67,8 @@ person.set('firstName', 'John');
 person.set('lastName', 'Smith');
 ```
 
-Para resolver esses problemas você irá fazer uso do [`Ember.run.once()`][1].
-Isso irá garantir que qualquer processamento que você precisar só irá acontecer uma vez,
-e acontecerá no proximo `run loop` depois que todo os bindings forem sincronizados:
+Para resolver esses problemas você pode fazer uso do [`Ember.run.once()`][1].
+Isso vai garantir que qualquer processamento que você precisar executar apenas uma vez, sera executado uma única vez por _run loop_, isso é, depois que os bindings forem sincronizados:
 
 [1]: http://emberjs.com/api/classes/Ember.run.html#method_once
 
@@ -83,8 +79,10 @@ Person.reopen({
   }),
 
   processFullName: Ember.observer('fullName', function() {
-    // This will only fire once if you set two properties at the same time, and
-    // will also happen in the next run loop once all properties are synchronized
+    // Isso fará com que ele só seja disparado uma vez se você mudar
+// os valores das propriedades ao mesmo tempo, 
+    // e tambem depois que o proximo run loop terminar
+// e todas as propriedades forem sincronizadas
     console.log(this.get('fullName'));
   })
 });
@@ -95,11 +93,10 @@ person.set('lastName', 'Smith');
 
 ### Observers e inicialização de objeto
 
-Observers nunca disparam antes que a inicialização de um objeto terminar.
+Observers não podem ser disparados antes que a inicialização de um objeto terminar.
 
-Se você precisar disparar que um observer na inicialização desse objejo você não poderá 
-usar ele com o `set`. No lugar você precisará especificar que o observer tambem deve rodar depois do 
- `init` usando o [`Ember.on()`][1]:
+Se você precisar disparar que um observer durante a inicialização de um objeto você não 
+vai poder usar o método `set` dele. E você também precisará especificar um `observer` para ser rodado depois do método  `init` usando o [`Ember.on()`][1]:
 
 [1]: http://emberjs.com/api/classes/Ember.html#method_on
 
@@ -110,28 +107,24 @@ Person = Ember.Object.extend({
   },
 
   salutationDidChange: Ember.on('init', Ember.observer('salutation', function() {
-    // some side effect of salutation changing
+    // Alum side effect da mudança do propriedade salutation
   }))
 });
 ```
 
 ### Computed Properties não consumidas Não Disparam Observers
 
-Se você nuncar usar `get()` de um computed property, os observer não irão 
-disparar se eles dependem dessas chaves. Se você pensa que o valor estará mudando
-de um desconhecido para outro.
+Se você nunca usar o `get()` de um _computed property_ especifica, os observer dessa propriedade nunca irão ser disparados. Você pode pensar que seria algo como um valor desconhecido estar mudando para outro também desconhecido.
 
-Isso normalmente não afeta sua aplicação porque normalmente computed properties são 
-sempre observadas no mesmo tempo em que são manipulados. Por exemplo, se você usar o `get`
-o valor de uma computed property, colocar ela na DOM, e então observar quando 
-o observer irá atualizar a DOM depois que as propriedades mudarem.
+Isso normalmente não afeta sua aplicação porque na maioria das vezes que  _computed properties_ são observadas, isso acontece no mesmo tempo em que são manipulados. Por exemplo, se você usar `get` para pegar o valor de _computed property_, e colocar ela na DOM, e então o `observer` irá ser disparado quando essa propriedade mudar.
 
-Se você precisar observer uma computed property mas você não esta recuperando ela, você 
-pode colocar isso dentro do seu metodo `init`.
+Se você precisar usar um `observer` em uma _computed property_ antes de fazer um get, você vai precisar adicionar esse código ao seu método `init`.
 
-### Fora das definição das classes
 
-Você pode adicionar observers à um objeto fora das suas classes usando o [`addObserver()`][1]:
+
+### Usando Observers Fora das Classes
+
+Você pode adicionar observers à um objeto fora das suas classes do Ember usando o [`addObserver()`][1]:
 
 [1]: http://emberjs.com/api/classes/Ember.Object.html#method_addObserver
 
@@ -140,3 +133,4 @@ person.addObserver('fullName', function() {
   // deal with the change
 });
 ```
+
