@@ -1,9 +1,9 @@
-Imagine we are writing a web app for managing a blog. At any given time, we
-should be able to answer questions like _What post are they looking at?_ and
-_Are they editing it?_ In Ember.js, the answer to these questions is determined
-by the URL.
+Imagine que você esta escrevendo uma aplicação em ember que irá gerenciar um blog.
+Em um determinado momento, nos devemos responder perguntas do tipo _Em qual post
+nos estamos olhando?_ ou _Estamos editando esse post?_, no Ember.js todas essas 
+repostas são determinadas pela URL.
 
-The URL can be set in a few ways:
+Uma URL pode ser carregada de algumas maneiras:
 
 * The user loads the app for the first time.
 * The user changes the URL manually, such as by clicking the back button or by
