@@ -5,18 +5,16 @@ repostas são determinadas pela URL.
 
 Uma URL pode ser carregada de algumas maneiras:
 
-* The user loads the app for the first time.
-* The user changes the URL manually, such as by clicking the back button or by
-editing the address bar.
-* The user clicks a link within the app.
-* Some other event in the app causes the URL to change.
+* O usuario carrega o aplicativo pela primeira vez.
+* O usuario muda a URL manualmente, clicando no botão de voltar ou mesmo editando a barra de endereços.
+* O usuario clica em um link dentro da aplicação.
+* Algum outro evento da aplicação faz com que a URL seja alterada.
 
-Regardless of how the URL becomes set, the Ember router then maps the current
-URL to one or more route handlers. A route handler can do several things:
+Independentemente de em que a URL irá se transformar, o route do Ember mapeia a URL atual para um
+ou mais _route handlers_. Um _route handler_ pode fazer diversas coisas, como por exemplo:
 
-* It can render a template.
-* It can load a model that is then available to the template.
-* It can redirect to a new route, such as if the user isn't allowed to visit
-that part of the app.
-* It can handle actions that involve changing a model or transitioning to a new
-route.
+* Eles podem renderizar um template.
+* Eles podem carregar um modelo e fazer assim ele disponivel para o template.
+* Eles podem redicionar para uma outra routa, como em uma autenticação por exemplo, 
+em que você é redirecionado para algum lugar caso não tenha acesso à determinada parte da aplicação.
+* Eles podem manipular ações que envolvam mudar o model ou criar uma nova transição para outra rota.
