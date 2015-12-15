@@ -1,23 +1,23 @@
-During a route transition, the Ember Router passes a transition
-object to the various hooks on the routes involved in the transition.
-Any hook that has access to this transition object has the ability
-to immediately abort the transition by calling `transition.abort()`,
-and if the transition object is stored, it can be re-attempted at a
-later time by calling `transition.retry()`.
+Durante a transição de uma rota, o router do Ember passa um objeto _transition_
+para os varios hooks da rotas que forem envolvidos nessa transição.
+Qualquer hook que acessa esse objeto _transition_ tem a habilidade de abortar imediatamente
+a transição chamando o metodo `transition.abort()`, essa mesma transição pode ser usada depois 
+se for guardada em uma variavel e você chamar o metodo `transition.retry()` dela.
 
-### Preventing Transitions via `willTransition`
+### Previnindo Transições via `willTransition`
 
-When a transition is attempted, whether via `{{link-to}}`, `transitionTo`,
-or a URL change, a `willTransition` action is fired on the currently
-active routes. This gives each active route, starting with the leaf-most
-route, the opportunity to decide whether or not the transition should occur.
+Quando você tenta fazer uma transição, seja via `{{link-to}}`, `transitionTo`,
+ou por uma mudança na URL, uma action chamada `willTransition` será disparada nas rotas que
+estiverem ativas. Isso nos dará para cada rota ativa, começando do nivel mais baixo,
+a oportunidade de decidir de uma transição deve ocorrer ou não.
 
-Imagine your app is in a route that's displaying a complex form for the user
-to fill out and the user accidentally navigates backwards. Unless the
-transition is prevented, the user might lose all of the progress they
-made on the form, which can make for a pretty frustrating user experience.
+Imagine que seu aplicativo esta em uma rota que esta exibindo um formulario complexo
+para seu usuario preencher e ele acidentalmente navega para a pagina anterior.
+A não ser que essa transição seja previnida, o usuario provavelmente irá perder todo o 
+progresso do que tinha feito nesse forme até então, oque seria uma experiencia bem frustrante
+para o usuario.
 
-Here's one way this situation could be handled:
+Aqui esta uma maneira em que podemos lidar com essa sintuação:
 
 ```app/routes/form.js
 export default Ember.Route.extend({
@@ -36,20 +36,18 @@ export default Ember.Route.extend({
 });
 ```
 
-When the user clicks on a `{{link-to}}` helper, or when the app initiates a
-transition by using `transitionTo`, the transition will be aborted and the URL
-will remain unchanged. However, if the browser back button is used to
-navigate away from `route:form`, or if the user manually changes the URL, the
-new URL will be navigated to before the `willTransition` action is
-called. This will result in the browser displaying the new URL, even if
-`willTransition` calls `transition.abort()`.
+Quando o usario clica em um helper `{{link-to}}`, ou quando sua aplicação faz uma transição
+usando o `transitionTo`, a transição iria ser abortada e a URL iria continuar a mesma. 
+No entanto, se o o botão back do navegador for usado para nevagar para fora do `route:form`, 
+ou o usuario mudar manualmente a URL ele irá ir para essa nova URL antes da action `willTransition`
+ser chamada. Isso irá resultar no navegador exibindo a outra url mesmo que o `willTransition` chamar 
+o metodo `transition.abort()`.
 
-### Aborting Transitions Within `model`, `beforeModel`, `afterModel`
+### Abortando Transições usando o `model`, `beforeModel`, `afterModel`
 
-The `model`, `beforeModel`, and `afterModel` hooks described in
-[Asynchronous Routing](../asynchronous-routing)
-each get called with a transition object. This makes it possible for
-destination routes to abort attempted transitions.
+O hooks `model`, `beforeModel`, e `afterModel` são descritos em [Asynchronous Routing](../asynchronous-routing)
+cada um deles recebe um objeto _transition_. Isso faz com que seja possivel rotas de destino abortarem
+tentativas de transições.
 
 ```app/routes/disco.js
 export default Ember.Route.extend({
@@ -62,12 +60,12 @@ export default Ember.Route.extend({
 });
 ```
 
-### Storing and Retrying a Transition
+### Guardando e fazendo Retry de uma Transição
 
-Aborted transitions can be retried at a later time. A common use case
-for this is having an authenticated route redirect the user to a login
-page, and then redirecting them back to the authenticated route once
-they've logged in.
+Transições abortadas podem ser recuperadas mais tarde.
+Um caso comum para esse tipo de comportamento é quando nos temos 
+uma route autenticada e redirecionando o usuario para a pagina de login, e 
+então redirecionando ele para outra area uma vez que ele já esta logado.
 
 ```app/routes/some-authenticated.js
 export default Ember.Route.extend({
