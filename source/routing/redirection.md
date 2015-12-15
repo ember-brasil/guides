@@ -1,19 +1,17 @@
-Calling [`transitionTo()`][1] from a route or [`transitionToRoute()`][2] from a 
-controller will stop any transition currently in progress and start a new 
-one, functioning as a redirect. `transitionTo()` behaves exactly like the 
-[link-to](../../templates/links) helper.
+Chamando o metodo [`transitionTo()`][1] a partir de uma rota, ou o [`transitionToRoute()`][2] de um 
+controller irá parar qualquer transição que estiver sendo feita e começar uma nova, funcionando com
+um redirecionamento. `transitionTo()` se comporta exatamente igual o helper [link-to](../../templates/links).
 
 [1]: http://emberjs.com/api/classes/Ember.Route.html#method_transitionTo
 [2]: http://emberjs.com/api/classes/Ember.Route.html#method_transitionToRoute
 
-If the new route has dynamic segments, you need to pass either a _model_ or an _identifier_ for each segment.
-Passing a model will skip that segment's `model()` hook (since the model is
-already loaded).
+Se a nova rota de tem seguimentos dinamicos, você irá precisar passar ou um _model_ ou um identificador para cada _identificador_ para cada seguimento. Passando o model irá fazer com que o hook `model()` não seja executado (levando em conta que seu model já 
+esta carregado).
 
-## Transitioning Before the Model is Known
+## Transições antes do Model ser Conhecido
 
-If you want to redirect from one route to another, you can do the transition in
-the [`beforeModel()`][1] hook of your route handler.
+Se você quiser redicionar uma rota para outra, você pode fazer esse redirecionamento 
+usando o hook [`beforeModel()`][1] dentro do seu route handler.
 
 [1]: http://emberjs.com/api/classes/Ember.Route.html#method_beforeModel
 
@@ -31,15 +29,14 @@ export default Ember.Route.extend({
 });
 ```
 
-If you need to examine some application state to figure out where to redirect,
-you might use a [service](../../applications/services).
+Se você precisar examinar algum estado da aplicação antes de fazer esse 
+redirecionamento uma provavelmente uma melhor solução seria criar um [service](../../applications/services).
 
-## Transitioning After the Model is Known
+## Transições Depois do Model ser Conhecido
 
-If you need information about the current model in order to decide about
-redirection, you can use the [`afterModel()`][1] hook.
-It receives the resolved model as the first parameter and the transition as
-the second one. For example:
+Se você precisar de alguma informação do model atual para tomar alguma decissão você 
+pode o usar o hook [`afterModel()`][1]. Ele recebe o model como primeiro parametro e a transição como
+segundo, você pode ver como isso funciona no exemplo abaixo:
 
 [1]: http://emberjs.com/api/classes/Ember.Route.html#method_afterModel
 
@@ -76,14 +73,14 @@ Router.map(function() {
 });
 ```
 
-If we redirect to `posts.post` in the `afterModel` hook, `afterModel`
-essentially invalidates the current attempt to enter this route. So the `posts`
-route's `beforeModel`, `model`, and `afterModel` hooks will fire again within
-the new, redirected transition. This is inefficient, since they just fired
-before the redirect.
+Se nos redirecionarmos do `posts.post` no hook `afterModel`, `afterModel`
+essencialmetne invalida a tentativa atual de entrar nessa rota, então os hooks 
+`beforeModel`, `model`, and `afterModel` do route `posts` serão disparados novamente.
+Isso é ineficiente, tendo em vista que eles acabaram de ser executados antes desse 
+redirecionamento.
 
-Instead, we can use the [`redirect()`][1] method, which will leave the original
-transition validated, and not cause the parent route's hooks to fire again:
+No lugar disso, nos podemos usar o metodo [`redirect()`][1], irá deixar a transição original
+validata, e não irá fazer com que os hooks da route pai sejam disparados novamente:
 
 [1]: http://emberjs.com/api/classes/Ember.Route.html#method_redirect
 
