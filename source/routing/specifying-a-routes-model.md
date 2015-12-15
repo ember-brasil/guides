@@ -1,7 +1,7 @@
-Often, you'll want a template to display data from a model. Loading the
-appropriate model is one job of a route.
+Algumas vezes, você vai precisar que um template mostre dados vindos de um model.
+Carregar o model correto para cada template é uma das responsabilidades de uma route.
 
-For example, take this router:
+Por exemplo, veja esse router:
 
 ```app/router.js
 Router.map(function() {
@@ -9,8 +9,8 @@ Router.map(function() {
 });
 ```
 
-To load a model for the `favoritePosts` route, you would use the [`model()`][1] 
-hook in the `posts` route handler:
+Para carregar um model para a route `favoritePosts`, você precisa usar um [`model()`][1] 
+hook dentro do route handler do `posts`:
 
 [1]: http://emberjs.com/api/classes/Ember.Route.html#method_model
 
@@ -22,14 +22,14 @@ export default Ember.Route.extend({
 });
 ```
 
-Typically, the `model` hook should return an [Ember Data](../../models/) record,
-but it can also return any [promise](https://www.promisejs.org/) object (Ember
-Data records are promises), or a plain JavaScript object or array. Ember will
-wait until the data finishes loading (until the promise is resolved) before
-rendering the template.
+Normalmente, um hook `model` deve retornar um registro [Ember Data](../../models/),
+mas ele tambem pode retornar qualquer objeto [promise](https://www.promisejs.org/) (registros do Ember
+Data são promessas), ou mesmo um objeto ou array nativo do JavaScript. O Ember vai 
+esperar até que esses dados terminem de carregar (quando sua promessa for resolvida) antes de renderizar 
+qualquer template.
 
-The return value from the `model` hook is then available in your template and
-controller with the `model` property:
+O valor retornado de um `model` hook estará disponivel no seu template e no seu controller a partir da 
+propriedade `model`:
 
 ```app/templates/favorite-posts.hbs
 <h1>Favorite Posts</h1>
@@ -38,30 +38,27 @@ controller with the `model` property:
 {{/each}}
 ```
 
-## Dynamic Models
+## Models Dinamicos
 
-Some routes always display the same model. For example, the `/photos`
-route will always display the same list of photos available in the
-application. If your user leaves this route and comes back later, the
-model does not change.
+Algumas rotas sempre irão exibir o mesmo model. Por exemplo, a route `/photos`
+irá sempre exibir a mesma lista de fotos disponiveis na sua aplicação. Se
+seu uario deixar essa route e voltar para ela mais tarde, ela não irá seu model não será alterado.
 
-However, you will often have a route whose model will change depending
-on user interaction. For example, imagine a photo viewer app. The
-`/photos` route will render the `photos` template with the list of
-photos as the model, which never changes. But when the user clicks on a
-particular photo, we want to display that model with the `photo`
-template. If the user goes back and clicks on a different photo, we want
-to display the `photo` template again, this time with a different model.
+No entanto, você pode ter uma route no qual o model mude dependendo da intereção do usuario. 
+Por exemplo, imagine um app visualizador de fotos. A route `/photos` irá renderizar
+o template `photos` com uma lista de fotos como model, esse no qual nunca muda. 
+Porem quando o usuario clicar em uma foto em particular, nos queremos exibir auqle model com o 
+template `photo`. Se o usuario voltar ou clicar em uma foto diferetne, nos 
+vamos querer exibir o template de `photo` novamente, só que dessa vez com um model diferente.
 
-In cases like this, it's important that we include some information in
-the URL about not only which template to display, but also which model.
+Em casos como esse, é importante que você inclua alguma informação sobre a URL não apenas sobre 
+qual template ela irá exibir, mas tambem quais models.
 
-In Ember, this is accomplished by defining routes with [dynamic
-segments](../defining-your-routes/#toc_dynamic-segments).
+No ember, nos conseguimos definr routes com [seguimentos dinamicos](../defining-your-routes/#toc_dynamic-segments).
 
-Once you have defined a route with a dynamic segment,
-Ember will extract the value of the dynamic segment from the URL for
-you and pass them as a hash to the `model` hook as the first argument:
+Uma vez que você definir uma rota com um seguimento dinamico, o 
+Ember irá extrair o valor de cada seguimento dinamico a partir da URL
+e passar para a o `model` hook como seu primeiro argumento:
 
 ```app/router.js
 Router.map(function() {
@@ -77,25 +74,23 @@ export default Ember.Route.extend({
 });
 ```
 
-In the `model` hook for routes with dynamic segments, it's your job to
-turn the ID (something like `47` or `post-slug`) into a model that can
-be rendered by the route's template. In the above example, we use the
-photo's ID (`params.photo_id`) as an argument to Ember Data's `findRecord`
-method.
+Em `model` hooks para routes com seguimentos dinamicos, é nosso trabalho transformar
+o ID (algo como `47` ou mesmo um `post-slug`) em um model que pode ser renderizado pelo template de um route. 
+No exemplo acima nos usamos (`params.photo_id`) como sendo ID das fotos, esse argumento vai ser passado 
+para o metodo `findRecord` do Ember Data's.
 
-Note: A route with a dynamic segment will only have its `model` hook called
-when it is entered via the URL. If the route is entered through a transition
-(e.g. when using the [link-to](../../templates/links) Handlebars helper), then a model context is
-already provided and the hook is not executed. Routes without dynamic segments
-will always execute the model hook.
+Nota: Uma rota com seguimento dinamico só irá ter seu `model` hook chamado
+quando for acessado pela URL. Se uma rota é acessada por uma transição
+(ex. quando usamos o helper [link-to](../../templates/links)), então o context desse model
+já teria sido fornecido e esse hook não executado. Rotas sem seguimentos dinamicos 
+irão sempre executar o _model hook_.
 
-## Multiple Models
+## Multiplos Models
 
-Multiple models can be returned through an
+Multiplos models podem ser retornados pelo
 [Ember.RSVP.hash](http://emberjs.com/api/classes/RSVP.html#method_hash).
-The `Ember.RSVP.hash` takes
-parameters that return promises, and when all parameter promises resolve, then
-the `Ember.RSVP.hash` promise resolves. For example:
+O `Ember.RSVP.hash` recebe parametros e os retorna como promisses, quando todas esses parametros promisses
+forem resolvidos então o `Ember.RSVP.hash` tambem irá ser resolvido (ele tambem é uma promisse). Por exemplo:
 
 ```app/routes/songs.js
 export default Ember.Route.extend({
@@ -108,8 +103,8 @@ export default Ember.Route.extend({
 });
 ```
 
-In the `songs` template, we can specify both models and use the `{{#each}}` helper to display
-each record in the song model and album model:
+No template do `songs`, nos podemos especificar ambos models e usar o helper `{{#each}}` para eibir 
+cada registro de um _song model_ e _album model_:
 
 ```app/templates/songs.hbs
 <h1>Playlist</h1>
