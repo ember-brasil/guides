@@ -1,8 +1,8 @@
-One job of a route handler is rendering the
-appropriate template to the screen.
+Um dos trabalhos de um route handler é fornecer o template correto
+para ser renderizado na tela.
 
-By default, a route handler will render the template with the same name as the
-route. Take this router:
+Por default, um route handler irá renderizar o template com o mesmo nome da rota,
+como por exemplo nesse router:
 
 ```app/router.js
 Router.map(function() {
@@ -12,16 +12,15 @@ Router.map(function() {
 });
 ```
 
-Here, the `posts` route will render the `posts.hbs` template, and
-the `posts.new` route will render `posts/new.hbs`.
+Aqui, a route `posts` irá renderizar o template `posts.hbs`, e o route `posts.new`
+vai renderizar o `posts/new.hbs`.
 
-Each template will be rendered into the `{{outlet}}` of its parent route's
-template. For example, the `posts.new` route will render its template into the
-`posts.hbs`'s `{{outlet}}`, and the `posts` route will render its template into
-the `application.hbs`'s `{{outlet}}`.
+Cada template irá ser renderizdo dentro do helper `{{outlet}}` do seu route superior. 
+Por exemplo, o route `posts.new` irá renderizar seu template dentro do `{{outlet}}` no template
+`posts.hbs`, assim como o route `posts` irá ser renderizado dentro do `{{outlet}}` do nosso `application.hbs`.
 
-If you want to render a template other than the default one, implement the
-[`renderTemplate()`][1] hook:
+Se você quiser renderizar um template diferente do padrão, você vai ter que 
+implementar um hook [`renderTemplate()`][1]:
 
 [1]: http://emberjs.com/api/classes/Ember.Route.html#method_renderTemplate
 
