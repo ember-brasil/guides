@@ -1,4 +1,4 @@
-Para entender o Ember, existem alguns conceitos que você precisa conhecer.
+Antes de começar a programar em Ember, é bom ter uma visão geral de como uma aplicação Ember funciona.
 
 ## Templates
 
