@@ -1,13 +1,13 @@
-The Ember Router allows you to provide feedback that a route is loading, as well
-as when an error occurs in loading a route.
+O Ember Router nos permite receber feedback do carregamento dos routes, assim como quando 
+um erro acontece quando carregamos uma route.
 
-## `loading` substates
+## Sub-estados do `loading`
 
-During the `beforeModel`, `model`, and `afterModel` hooks, data may take some
-time to load. Technically, the router pauses the transition until the promises
-returned from each hook fulfill.
+Durante os hooks `beforeModel`, `model`, e `afterModel`, dados talvez demorem algum tempo 
+para carregar. Tecnicamente, o router pausa a transição até que as promises sejam resolvidas e cada
+hook seja completado.
 
-Consider the following:
+Considere o seguinte:
 
 ```app/router.js
 Router.map(function() {
@@ -23,29 +23,28 @@ export default Ember.Route.extend({
 });
 ```
 
-If you navigate to `slow-model`, in the `model` hook,
-the query may take a long time to complete.
-During this time, your UI isn't really giving you any feedback as to
-what's happening. If you're entering this route after a full page
-refresh, your UI will be entirely blank, as you have not actually
-finished fully entering any route and haven't yet displayed any
-templates. If you're navigating to `slow-model` from another
-route, you'll continue to see the templates from the previous route
-until the model finish loading, and then, boom, suddenly all the
-templates for `slow-model` load.
+Se você navegar para o `slow-model`, o hook `model`,
+talvez demore um bom tempo para ser completado.
+Durante esse tempo, seu UI não esta realmente dando nenhum feedback do que esta acontecendo. 
+Se você enrar nessa rota depois de um full page
+refresh, sua UI estará completamente vazia, porque você não terminou nenhuma 
+transição e os templates só são carregados depois que elas acabam.
 
-So, how can we provide some visual feedback during the transition?
+Se você esta navegando para o `slow-model` a partir de outra rota, 
+Você iria continuar vendo templates da rota anterior até que seu _model_ termine de carregar,
+e então sem nenhum aviso para o usuario, boom, todos os templates do `slow-model` seriam carregados.
 
-Simply define a template called `loading` (and optionally a corresponding route)
-that Ember will transition to. The
-intermediate transition into the loading substate happens immediately
-(synchronously), the URL won't be updated, and, unlike other transitions, the
-currently active transition won't be aborted.
+Então, como podemos dar algum feedback visual durante as transições?
 
-Once the main transition into `slow-model` completes, the `loading`
-route will be exited and the transition to `slow-model` will continue.
+Basta definir um template chamado `loading` (e opcionalmente uma rota correspondente para ele)
+para que o ember faça essas transições. A transição intermediaria para o substate de loading acontece
+imediatamente de maneira sincrona. A URL não é atualizada, e dirente das outras transições,
+uma transição desse tipo não pode ser abortada.
 
-For nested routes, like:
+Uma vez que a transição principal para o `slow-model` termine, a route `loading`
+irá terminar e a transição para o `slow-model` irá continuar.
+
+Para routes aninhados, faça algo como:
 
 ```app/router.js
 Router.map(function() {
@@ -57,23 +56,24 @@ Router.map(function() {
 });
 ```
 
-Ember will alternate trying to find a `routeName-loading` or `loading` template
-in the hierarchy starting with `foo.bar.slow-model-loading`:
+Ember irá alternar entre tentar encontrar o template `routeName-loading` ou `loading`
+na hierarquia começando com o `foo.bar.slow-model-loading`:
+in the hierarchy starting with :
 
 1. `foo.bar.slow-model-loading`
-2. `foo.bar.loading` or `foo.bar-loading`
-3. `foo.loading` or `foo-loading`
-4. `loading` or `application-loading`
+2. `foo.bar.loading` ou `foo.bar-loading`
+3. `foo.loading` ou `foo-loading`
+4. `loading` ou `application-loading`
 
-It's important to note that for `slow-model` itself Ember will not try to find
-a `slow-model.loading` template but for the rest of the hierarchy either
-syntax is acceptable. This can be useful for creating a custom loading screen
-for a leaf route like `slow-model`.
+É importante perceber que para o proprio `slow-model` o Ember não vai tentar encontrar
+o template `slow-model.loading` mas para o resto da hierarquia essa sintaxe é aceitavel. 
+Isso pode ser util quando para criarmos paginar de loading personalizadas para uma 
+rota de baixo nivel como a `slow-model`.
 
-### The `loading` event
+### O evento `loading`
 
-If the various `beforeModel`/`model`/`afterModel` hooks
-don't immediately resolve, a [`loading`][1] event will be fired on that route.
+Se varios hooks `beforeModel`/`model`/`afterModel` não forem resolvidos imediatamente,
+o evento [`loading`][1] será disparado para essa rota.
 
 [1]: http://emberjs.com/api/classes/Ember.Route.html#event_loading
 
@@ -91,11 +91,12 @@ export default Ember.Route.extend({
 });
 ```
 
-If the `loading` handler is not defined at the specific route,
-the event will continue to bubble above a transition's parent
-route, providing the `application` route the opportunity to manage it.
+Se o handler para `loading` não for definido para uma rota especifica,
+o evento irá continuar em forma de bubble para a transição da route pai, 
+dando assim uma oportunidade para a route `application` de manipular essa ação.
 
-When using the `loading` handler, we can make use of the transition promise to know when the loading event is over:
+Qaundo usamos o handler `loading`, nos podemos teremos certeza de quando uma a promisse de 
+uma transição estiver acabado:
 
 ```app/routes/foo-slow-model.js
 export default Ember.Route.extend({
@@ -112,14 +113,13 @@ export default Ember.Route.extend({
 });
 ```
 
-## `error` substates
+## Sub-estados de `error`
 
-Ember provides an analogous approach to `loading` substates in
-the case of errors encountered during a transition.
+O Ember nos dá recursos bem parecidos dos sub-estados de `loading` para quando 
+encontrarmos errors durante alguma transição.
 
-Similar to how the default `loading` event handlers are implemented,
-the default `error` handlers will look for an appropriate error substate to
-enter, if one can be found.
+Da mesma maneira que os eventos de `loading` são implementados tambem existe um 
+handler default chamado `error` que irá olhar para sub-estados dos erros, caso algum seja encontrado.
 
 ```app/router.js
 Router.map(function() {
@@ -129,30 +129,28 @@ Router.map(function() {
 });
 ```
 
-As with the `loading` substate, on a thrown error or rejected promise returned
-from the `articles.overview` route's `model` hook (or `beforeModel` or
-`afterModel`) Ember will look for an error template or route in the following
-order:
+Como no sub-estado de `loading`, quando acontece um thrown ou alguma promisse é rejeitada no
+hook `model` (ou `beforeModel` ou `afterModel`) da route `articles.overview` o Ember irá procurar
+por template de error ou por uma route seguindo a seguinte route:
 
 1. `articles.overview-error`
-2. `articles.error` or `articles-error`
-3. `error` or `application-error`
+2. `articles.error` ou `articles-error`
+3. `error` ou `application-error`
 
-If one of the above is found, the router will immediately transition into
-that substate (without updating the URL). The "reason" for the error
-(i.e. the exception thrown or the promise reject value) will be passed
-to that error state as its `model`.
+Se uma das condições acima for encontrada o router irá imediatamente fazer uma transição
+para esse sub-estado (sem atualizar a URL). A "reason" desse erro será pasasdo 
+para o estado de error como se fosse seu `model`.
 
-If no viable error substates can be found, an error message will be
-logged.
+Se nenhum sub-estado de error for encontrado a mensagem de error será registrada.
 
-### The `error` event
+### O Evento `error`
 
-If the `articles.overview` route's `model` hook returns a promise that rejects
-(for instance the server returned an error, the user isn't logged in,
-etc.), an [`error`][1] event will fire from that route and bubble upward.
-This `error` event can be handled and used to display an error message,
-redirect to a login page, etc.
+Se o `model` hook da rota retornar uma promessa que foi rejeitada
+(como por exemplo o servidor mandando um erro dizendo que o usuario não foi autenticado,
+ou que ele não tem acesso à determinado conteudo.), o evento [`error`][1] irá ser disparado
+a partir dessa rota e ira fazer bubble por toda hierarquia.
+Esse evento `error` pode ser manipulado para mostrar uma notificação, redirecionar o usuario para uma
+pagina de login, etc.
 
 [1]: http://emberjs.com/api/classes/Ember.Route.html#event_error
 
@@ -171,5 +169,6 @@ export default Ember.Route.extend({
 });
 ```
 
-Analogous to the `loading` event, you could manage the `error` event
-at the application level to avoid writing the same code for multiple routes.
+Da mesma maneira que o evento `loading`, você pode manipular o evento `error` 
+no level application do seu projeto, assim evitando de escrever o mesmo codigo para diversas
+rotas.
